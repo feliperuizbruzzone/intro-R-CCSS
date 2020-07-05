@@ -1,48 +1,56 @@
-# INTRODUCCIÓN A R PARA CIENCIAS SOCIALES
-# ESTACIÓN LASTARRIA - JULIO 2020
+# INTRODUCCIÃ“N A R PARA CIENCIAS SOCIALES
+# ESTACIÃ“N LASTARRIA - JULIO 2020
 # PROFESOR: FELIPE RUIZ
 
 # ---- 0. CARGA DE PAQUETES Y DATOS A UTILIZAR ----
 
-# ----  PROYECTO DEBE ESTAR ACTIVO EN SESIÓN RSTUDIO
+# ----  PROYECTO DEBE ESTAR ACTIVO EN SESIÃ“N RSTUDIO
+    # Â¿CÃ³mo verificar?
 
-# EJECUCIÓN DE COMANDOS:
-  # Se ejecuta línea de comando donde está el cursor, o bien selección ad-hoc
-  # Botón "run" en botonera del editor de sintaxis
-  # Combinación de teclas: ctrl + enter
+# ---- PROBLEMAS CON CARACTERES ESPECIALES?
+    # Â¿CÃ³mo solucionar?
+
+# EJECUCIÃ“N DE COMANDOS:
+  # Se ejecuta lÃ­nea de comando donde estÃ¡ el cursor, o bien selecciÃ³n ad-hoc
+  # BotÃ³n "run" en botonera del editor de sintaxis
+  # CombinaciÃ³n de teclas: ctrl + enter
 
 #Descargar paquete desde CRAN a disco duro
-  # Verificar instalación visualmente en pestaña 'packages'
+  # Verificar instalaciÃ³n visualmente en pestaÃ±a 'packages'
 install.packages("readxl") 
 
-#Cargar paquete en nuestra sesión de trabajo
-  # Verificar carga a sesión de RStudio visualmente en pestaña 'packages'
+#Cargar paquete en nuestra sesiÃ³n de trabajo
+  # Verificar carga a sesiÃ³n de RStudio visualmente en pestaÃ±a 'packages'
 library(readxl)
 
-#Ejecutamos función para leer planilla y asignamos a nuevo objeto
-  # Si proyecto está activo en directorio especificado, necesitamos una dirección 
+#Ejecutamos funciÃ³n para leer planilla y asignamos a nuevo objeto
+  # Si proyecto estÃ¡ activo en directorio especificado, necesitamos una direcciÃ³n 
   # relativa (al proyecto) y no absoluta (al computador personal) para cargar el archivo.
   # Usar proyectos facilita reproducibilidad
 
 ANEJUD <- read_excel("datos/ANEJUD.xlsx")
 
-# ---- 1. ANÁLISIS ESTADÍSTICO SIMPLE ----
+# Visualizar como planilla
+View(ANEJUD)
 
-# Frecuencias afiliación
+# ---- 1. ANÃLISIS ESTADÃSTICO SIMPLE ----
+
+# Frecuencias afiliaciÃ³n
   # El signo peso indica que se trata de una columna dentro de una matriz
 
 table(ANEJUD$afiliacion)
 
-# Frecuencias conjuntas (%) afiliación/genero
+# Frecuencias conjuntas (%) afiliaciÃ³n/genero
   # 'table': frecuencias conjuntas
-  # 'prop.table': cálculo proporciones a partir de frecuencias absolutas
+  # 'prop.table': cÃ¡lculo proporciones a partir de frecuencias absolutas
+                # nÃºmero 2 indica proporciones columnas.
   # 'round': redondeo de cifras decimales
 
 round(prop.table(table(ANEJUD$afiliacion, ANEJUD$genero),2)*100,2)
 
-# Estadísticos resumen edad
+# EstadÃ­sticos resumen edad
 summary(ANEJUD$edad)
 
-# Gráfico (histograma simple) de variable edad
+# GrÃ¡fico (histograma simple) de variable edad
 hist(ANEJUD$edad, xlab = "Edad", ylab = "Frecuencia", 
      main = "Histograma 1")
