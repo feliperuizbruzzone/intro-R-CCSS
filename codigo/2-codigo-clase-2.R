@@ -116,9 +116,7 @@ remove(list = ls())
 install.packages("readxl") # Leer archivos .xlsx
 install.packages("haven") # Leer bases de datos desde stata y spss
 install.packages("dplyr") # Herramientas para manejar bases de datos.
-install.packages("car") # Herramientas para análisis de regresión.
-
-install.packages(c("readxl","haven","dplyr","car")) # Forma "abreviada" de instalar varios paquetes
+install.packages(c("readxl","haven","dplyr")) # Forma "abreviada" de instalar varios paquetes
 
 # Verificación visual en pestaña "packages".
 
