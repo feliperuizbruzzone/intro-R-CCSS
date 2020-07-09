@@ -79,7 +79,7 @@ mean(movilizacion$ingreso)
 
 # B. Objetos (bases, resultados) se guardan con comandos (formato .rds).
 
-saveRDS(movilizacion2, file = "datos/1-movilizacion.rds")
+saveRDS(movilizacion, file = "datos/1-movilizacion.rds")
 # ¿Donde se guardó tal archivo?
 
 # Distinguir estos archivos del archivo del archivo proyecto (.Rproj)
