@@ -4,33 +4,19 @@
 
 # ---- 1. FUNDAMENTOS MANEJO INFORMACIÓN EN R ----
 
-# ---- CREACIÓN DE OBJETOS SIMPLES, MEDIANTE ASIGNACIÓN DIRECTA DE VALORES
-
-# "Flecha" asigna valores a objeto, que se guarda en memoria temporal del programa
-x <- 4
-
-#Asignar varios valores a un objeto. Crear un vector mediante función concatenar "c".
-
-# Pueden ser valores alfanuméricos (texto)
-y <- c("Muy de acuerdo", "De acuerdo", "En desacuerdo")
-
-z <- c(1,2,3,4,5)
-
-# Ejecutando cada objeto, vemos su contenido en la consola de resultados
-x
-y
-z
+# ---- CREACIÓN DE OBJETOS SIMPLES: DEL VECTOR A LA VARIABLE
 
 # Crearemos una "variable" como si fuera respuesta a pregunta: ¿cuál es su género?
-genero <- c(1,2,2,2,1,2,1,99,99)
+sexo <- c(1,2,2,2,1,2,1,99,99)
+table(sexo)
 
 # Etiquetaremos sus valores creando una nueva variable configurada como "factor":
 # Se indican códigos existentes (levels) y etiquetas (labels) o texto a asignar a cada código.
-generof <- factor (genero, levels = c(1,2,99), labels = c("Hombre", "Mujer", NA))
-table(generof) # Tabla arroja etiquetas de códigos.
+sexof <- factor (sexo, levels = c(1,2,99), labels = c("Hombre", "Mujer", NA))
+table(sexof) # Tabla arroja etiquetas de códigos.
 
 # Podemos eliminar objetos específicos del entorno (memoria temporal del programa) con código
-remove(x,y)
+remove(sexo)
 
 # Limpiar entorno de trabajo vía botones o sintaxis
 remove(list = ls())
@@ -43,18 +29,22 @@ remove(list = ls())
 # Pasar de objetos, a vectores, a matrices de información.
 
 #Supogamos un estudio de opinión sobre manifestaciones Octubre 2019.
-#Crearemos una base de datos de nueve casos y tres variables
+#Crearemos una base de datos de 9 casos y 3 variables
   #Género: 1 = Hombre/ 0 = Mujer. 
   #Ingreso: cantidades de pesos chilenos.
   #Acuerdo: escala de acuerdo con protestas durante O-19
     #Muy en desacuerdo = 1, En desacuerdo = 2, Ni de acuerdo ni en desacuerdo = 3, 
     # De acuerdo = 4, Muy de acuerdo = 5.
 
+# ---- CREACIÓN MANUAL DE VARIABLES
+
 genero <- c(1,1,0,1,0,0,0,1,0)
 
 ingreso <- c(100000,300000,500000,340000,300000,500000,650000,410000,750000)
 
 acuerdo <- c(1,1,3,2,4,1,5,3,2)
+
+# ---- AGRUPAMIENTO DE VARIABLES (VECTORES) COMO BASE (MATRIZ) DE DATOS
 
 #Ocupamos un nuevo comando para juntarlas en una matriz de datos (base de datos)
 movilizacion <- data.frame(genero, ingreso, acuerdo) #resulta como objeto de "datos" en entorno
@@ -76,32 +66,23 @@ table(movilizacion$genero)
 #Media
 mean(movilizacion$ingreso)
 
-#---- EJERCICIO 1 (configuración de variables) ----
-
-# 1. En base a los vectores simples recién creados (fuera de base de datos)
-  # configurar acuerdo" como factor en nueva variable.
-# 2. Crear nueva base de datos "movilizacion2" con tal variable + ingreso
-# 3. Aplicar "table" para ver tabla de frecuencias de variable factorizada.
-# 4. Visualizar base de datos creada "movilizacion2".
-
-
-#---- EJERCICIO 2: cálculo de media y desviación estándar ----
-# Calcular la mediana y desviación estándar de ingreso en base de datos 2
+#---- EJERCICIO 1: cálculo de media y desviación estándar ----
+# Calcular la mediana y desviación estándar de ingreso en base de datos
 # Usen internet, busquen el comando
 
 # ---- 3. ¿CÓMO Y QUÉ ARCHIVOS GUARDAR? ----
 
 # Sintaxis, entorno global (sesión) y objetos (bases, resultados)
 
-# 1. Sintaxis se guarda con botonera (formato .R) --> File --> Save as...
+# A. Sintaxis se guarda con botonera (formato .R) --> File --> Save as...
    # Cambios se guardan con botón "disquette" como en cualquier archivo.
 
-# 2. Objetos (bases, resultados) se guardan con comandos (formato .rds).
+# B. Objetos (bases, resultados) se guardan con comandos (formato .rds).
 
 saveRDS(movilizacion2, file = "datos/1-movilizacion.rds")
 # ¿Donde se guardó tal archivo?
 
-# Distinguir estos archivos del archivo del proyecto (.Rproj)
+# Distinguir estos archivos del archivo del archivo proyecto (.Rproj)
 
 # Limpiar entorno para posteriores ejercicios
 remove(list = ls())
@@ -115,8 +96,7 @@ remove(list = ls())
 
 install.packages("readxl") # Leer archivos .xlsx
 install.packages("haven") # Leer bases de datos desde stata y spss
-install.packages("dplyr") # Herramientas para manejar bases de datos.
-install.packages(c("readxl","haven","dplyr")) # Forma "abreviada" de instalar varios paquetes
+install.packages(c("readxl","haven")) # Forma "abreviada" de instalar varios paquetes
 
 # Verificación visual en pestaña "packages".
 
@@ -144,7 +124,7 @@ paraguay_csv <- read.csv("datos/paraguay.csv")
 View(paraguay_csv) # Visualizar base de datos
 # ¿Qué sucedió con los datos?
 
-#---- EJERCICIO 3: encontrar argumento para resolver el problema anterior ----
+#---- EJERCICIO 2: encontrar argumento para resolver el problema anterior ----
 
 
 #¿Qué pasa si usamos una función adecuada a notación latina?
@@ -154,7 +134,7 @@ View(paraguay_csv2)
 
 # ---- 2. ABRIR ARCHIVO "paraguay" DESDE VERSIÓN MICROSOFT EXCEL .
 
-library(readxl)
+library(readxl) # Ya lo ejecutamos!
 paraguay_excel <- read_excel("datos/paraguay.xlsx") 
 
 # Visualizar primeros casos en consola
@@ -187,23 +167,10 @@ UDP_spss <- read_spss("datos/UDP_2015.sav")
 #-------------------- RESPUESTA EJERCICIOS ---------------------
 
 # ---- RESPUESTA EJERCICIO 1
-table(acuerdo)
-
-acuerdo_f <- factor(acuerdo, levels = c(1,2,3,4,5), labels = c("Muy en desacuerdo", "En desacuerdo",
-                                                               "Ni de acuerdo ni en desacuerdo",
-                                                               "De acuerdo", "Muy de acuerdo"))
-
-movilizacion2 <- data.frame(acuerdo_f, ingreso)
-
-table(movilizacion2$acuerdo_f)
-
-View(movilizacion2)
+median(movilizacion$ingreso)
+sd(movilizacion$ingreso)
 
 # ---- RESPUESTA EJERCICIO 2
-median(movilizacion2$ingreso)
-sd(movilizacion2$ingreso)
-
-# ---- RESPUESTA EJERCICIO 3
 paraguay_csv <- read.csv("paraguay.csv", sep = ";")
 #se debe usar el argumento "sep" para indicar cuál signo denota separación de casos.
 #en el caso propuesto, está tomando las comas existentes como separador de casos.
