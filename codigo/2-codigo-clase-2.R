@@ -70,6 +70,9 @@ mean(movilizacion$ingreso)
 # Calcular la mediana y desviación estándar de ingreso en base de datos
 # Usen internet, busquen el comando
 
+# Mediana
+median(movilizacion$ingreso)
+
 # ---- 3. ¿CÓMO Y QUÉ ARCHIVOS GUARDAR? ----
 
 # Sintaxis, entorno global (sesión) y objetos (bases, resultados)
