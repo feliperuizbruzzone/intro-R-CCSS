@@ -1,0 +1,260 @@
+---
+title: "Ejemplo de uso de RMarkdown para construir informes en formato PDF"
+author: "Felipe Ruiz Bruzzone"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+lang: es
+linkcolor: blue
+csl: apa.csl
+subtitle: "Curso Introducción a R para Ciencias Sociales - Abril 2020"
+bibliography: clase_rmarkdown.bib
+urlcolor: blue
+output: 
+  pdf_document:
+    number_sections: yes
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+\pagebreak
+
+# Presentación
+
+Este documento es un ejemplo de exportación de resultados utilizando RMarkdown, para el curso introductorio al uso de RStudio para Ciencias Sociales efectuado durante **diciembre de 2019** en Estación Lastarria.[^1]
+
+[^1]: Si lo ejecutan tal como está, pueden exportarlo a Html de manera directa. Si quieren exportarlo a PDF deberán editar el comando *stargazer* del apartado de regresión.
+
+El objetivo del documento es lograr incluir en este ejemplo ocho elementos, con formato adecuado a reportes académicos y/o profesionales:
+
+1. Encabezado con información relevante junto con un índice al inicio. 
+2. Texto con diversas opciones de formato.
+3. Tabla con información construida manualmente.
+4. Tabla de frecuencias simples.
+5. Tablas de estadísticos descriptivos construidas manualmente y mediante función ad hoc.
+6. Resultados principales de un modelo de regresión lineal simple.
+7. Un gráfico de dispersión.
+8. Bibliografía.
+
+Esta plantilla de RMarkdown permite articular todos los elementos anteriores para producir un reporte. Recuerden que *nunca es necesario aprenderse de memoria los comandos*. Basta construir una planilla de este estilo e ir modificando lo que se desee, según los análisis requeridos.
+
+Para ejecutarlo, necesitarán tener instaladas algunas cuestiones adicionales. Existen diversas fuentes en línea en las cuales pueden encontrarse orietnaciones generales respecto al funcionamiento y uso de RMarkdown que incluimos a continuación como referencias [@grolemund_introduction_2014;@reproducible_research_workshop_writing_2016;@miller_r_2016;-@miller_pandoc_2018], podrán encontrar el final de este documento acceso a ellas mediante enlaces url.
+
+Para contar con orientaciones detalladas respecto a la instalación, funcionamiento y uso de RMarkdown _*en español*_ pueden revisar el [tutorial en línea](https://bookdown.org/gboccardo/manual-ED-UCH/) de Giorgio Boccardo y Felipe Ruiz [-@boccardo_rstudio_2019] (en español) disponible para descarga [en el siguiente enlace](https://www.researchgate.net/publication/334308025_RStudio_para_Estadistica_Descriptiva_en_Ciencias_Sociales_Manual_de_apoyo_docente_para_la_asignatura_Estadistica_Descriptiva_Carrera_de_Sociologia_Universidad_de_Chile_segunda_edicion). 
+
+También es altamente recomendable un libro (en inglés) publicado recientemente por los desarrolladores de las diferentes herramientas que componen RMarkdown titulado *RMarkdown: The Definitive Guide* [@yihui_r_2018]. En el enlace asociado a la referencia se encuentra una versión gratuita en línea de tal material.
+
+\pagebreak
+
+
+# Detalle de los elementos de RMarkdown
+
+Una sintaxis de RMarkdown se estructura en torno a tres elementos. 
+
+En primer lugar tenemos el encabezado. Aquí se configuran las *propiedades* del reporte final. Se pueden indicar distintos elementos: título del documento, subtítulo, autor, fecha, bibliografía y su formato, si se numerarán los títulos, si se integrará un índice, así como el estilo de las notas y enlaces a la web.
+
+En segundo lugar tenemos el editor de texto, que es el formato base de esta sintaxis. Aquí lo escrito por defecto no es un código de R. Debemos pensar que éste es nuestro procesador de texto (**y no Word!**). Desde aquí no sólo configuraremos las "salidas de resultados", sino que también escribiremos el contenido.
+
+En tercer lugar, tenemos los _trozos de código de R_ o *code chunks*. Se trata de bloques de código delimitados por la siguiente estructura. Como puede observarse en la sintaxis de RMarkdown, el inicio de un código está delimitado por tres apóstrofes seguidos por un r entre corchetes curvos `{r}`, y su cierre por otros tres apóstrofes. Eso delimita lo que se ejecutará como código de computación, diferenciándolo respecto al texto simple.
+
+Como se observa a continuación, también puede aplicarse una sangría mayor para un párrafo en específico.
+
+> ¿Cuáles son, entonces, las características de RMarkdown que lo diferencian de esta forma de trabajo? En términos sencillos RMarkdown es un procesador de texto que ofrece además la posibilidad de incluir trozos de código desde R (u otros formatos). El principal beneficio de esta herramienta es que permite trabajar en un sólo documento tanto la redacción del contenido narrativo de reportes de investigación, como también la construcción y presentación formal de resultados de análisis estadísticos. [@boccardo_rstudio_2019]
+
+El primer trozo de código se muestra en este reporte y se ejecuta al mismo tiempo. Refiere a la carga de datos y algunos paquetes. Similar a una sintaxis simple de R, cada trozo de código contempla lo que se hizo antes en la sesión de RMarkdown. En cualquier caso, es útil cargar datos y paquetes a usar en cada trozo de código, pues al ejecutarse desde el principio todos juntos, a veces se producen errores.[^2]
+
+[^2]: Así se incorporan notas al pie.
+
+```{r, warning=FALSE, message=FALSE}
+# Se configura el código para que se imprima pero sin mostrar ningún mensaje.
+library(knitr)
+library(summarytools)
+library(stargazer)
+load("datos.RData")
+```
+
+\pagebreak
+
+
+# Construcción de resultados
+
+## Tablas de información
+
+Una de las cuestiones básicas a considerar en el uso de RMarkdown es comprender qué elementos se ponen en juego en su funcionamiento. En la tabla 1 se muestran los elementos necesarios para el funcionamiento de RMarkdown y en la imagen 1, se muestra un diagrama que indica su articulación en el flujo de trabajo. 
+
+Al mismo tiempo, se está mostrando cómo insertar tablas con contenido construidas manualmente y también como insertar imágenes.
+
+Table: **Elementos necesarios para ejecución de RMarkdown: procedimientos de instalación**
+  
+  Elemento | Procedimiento de instalación | Código para instalación
+-------- | ---------------------------- | -----------------------
+  **RMarkdown**  | No es necesario ningún procedimiento adicional a la instalación de R y RStudio pues viene instalado con este último. | *No aplica*
+  **Knitr** | Debe instalarse como cualquier otro paquete de R, asegurando su disponiblidad para ser utilizado por RMarkdown al compilar documentos. | *install.packages("knitr")*
+  **Pandoc** | No es necesario ningún procedimiento adicional a la instalación de R y RStudio pues viene instalado con este último. | *No aplica*
+  **LaTex** | Debe descargarse como un paquete de R. Para asegurar su disponibilidad para ser utilizado por RMarkdown al compilar documentos, debe instalarse con un comando adicional. | *install.packages("tinytex")* *tinytex::install_tinytex()*
+  
+  
+  > **Imagen 1: Elementos necesarios para construir reportes con RMarkdown**
+  
+  ![Elementos necesarios para construir reportes con RMarkdown](rmarkdown_elementos.png)\
+
+\pagebreak
+
+## Tablas de frecuencias
+
+Para compilar tablas de frecuencias, se utiliza la función **freq** del paquete *summarytools*. Esta función permite indicar qué tipo de compilación se busca (*'style'*), la alineación del texto en tabla (*'justify'*), si se desea o no compilar los encabezados del resultado (*'headings = ...'*) y si se desea incluir en la tabla el conteo diferenciado de casos considerando valores perdidos (*'report.nas = ...'*).
+
+```{r}
+library(summarytools)
+freq(datos$sexo, style = "simple", justify = "center", headings = TRUE,
+     report.nas = FALSE)
+```
+
+Si se cambia el argumento *style* a la opción *'rmarkdown'*, y se indica la opciób *results = 'asis'* para el código de R, se obtendrá una tabla compilada en un formato procesable por RMarkdown.
+
+```{r, results='asis'}
+library(summarytools)
+freq(datos$sexo, style = "rmarkdown", justify = "center", headings = FALSE,
+     report.nas = FALSE)
+```
+
+\pagebreak
+
+## Estadísticos descriptivos
+
+### Tabla manual
+
+En este ejemplo se observa la construcción de una tabla de resultados elaborada de forma manual. Se calcula cada valor y se compila como vector (para dos variables). Luego se combinan tales vectores para construir una matriz de datos con dos filas. Luego de indicar que cada valor numerico se redondee a dos valores, se crea una variable con dos valores, que se unirá como columna, para indicar una etiqueta para cada variable.  
+
+```{r}
+n1<-length(datos$edad)
+min1<- min(datos$edad)
+med1<- median(datos$edad)
+prom1<- mean(datos$edad)
+de1 <- sd(datos$edad)
+max1 <- max(datos$edad)
+edad<- cbind(n1,min1,med1,prom1,de1,max1)
+
+n2 <- length(datos$satisfaccion_vida)
+min2<-min(datos$satisfaccion_vida, na.rm = T)
+med2 <- median(datos$satisfaccion_vida, na.rm = T)
+prom2 <- mean(datos$satisfaccion_vida,na.rm = T)
+de2 <- sd(datos$satisfaccion_vida, na.rm = T)
+max2 <- max(datos$satisfaccion_vida, na.rm = T)
+satisfaccion<- cbind(n2,min2,med2,prom2,de2,max2)
+
+descriptivos <- rbind(edad, satisfaccion)
+
+descriptivos <- round(descriptivos, digits = 1)
+
+variables <- c("Edad", "Satisfacción con la vida")
+
+tabla_1 <- cbind(variables,descriptivos)
+
+```
+
+De esto resulta una matriz de datos que se observa como sigue.
+
+```{r, echo = FALSE}
+tabla_1
+```
+Posteriormente, utilizando la función *kable* del paquete **knitr** se imprimirá esta matriz de datos en formato *tabla*, indicando un título, la alineación de los valores y los nombres de las columnas.
+
+```{r}
+library(knitr)
+kable(tabla_1, caption = "Estadísticos descriptivos de dos variables", align = 'c', digits = 2,
+      col.names = c("Variables", "N", "Mínimo", "Mediana", "Media","Desviación Estándar","Máximo"))
+```
+
+### Tabla usando función
+
+Seguiremos usando una función del paquete *summarytools*, en este caso la función **descr**. Esta función compila inicialmente una tabla vertical, para ajustarla a formato horizontal se usa especifica el argumento *transpose* como **TRUE**. Mediante el argumento *stats* se indican los estadísticos a calcular. El argumento *style* permite indicar el formato en que se busca compilar el resultado, en este caso, se indica el formato por defecto para la consola de R. Al igual que la función *freq* ya vista para tablas de frecuencias, los siguientes argumentos permiten indicar la alineación del texto en tabla (*'justify'*) y si se desea o no compilar los encabezados del resultado (*'headings = ...'*).
+
+
+```{r, results = 'asis'}
+descr(datos$edad, transpose = TRUE,
+      stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+      style = "simple", justify = "c", headings = TRUE)
+```
+
+Ahora, si se indica el formato *rmarkdown* y su utiliza la función *kable* del paquete **knitr** es factible imprimir la tabla adecuada a formato RMarkdown, pero editando el título de la tabla y los encabezados de las columnas. 
+
+En el archivo *.Rmd* se observa que se indica la el argumento `results = 'asis'` y `echo = FALSE` como especificaciones del trozo de código; esto permite que ni **knitr** ni **pandoc** compilen el formato del resultado, respetando la configuración establecida con *kable*, a la vez que se indica ejecutar el código y compilar su resultado, pero no mostrarlo en el reporte final. 
+
+```{r, results = 'asis', echo=FALSE}
+T3 <- descr(datos$edad, transpose = TRUE,
+            stats = c("N.Valid", "min","q1","med","mean","sd","q3","max","iqr"),
+            style = "rmarkdown", justify = "c", headings = T)
+
+kable(T3, caption = "Estadísticos descriptivos usando función", align = 'c', digits = 2,
+      col.names = c("N válidos","Mín.", "Q1","Mediana","Media","DE","Q3","Máx.","RIC."))
+```
+
+\pagebreak
+
+## Regresión lineal simple
+
+A continuación se muestra como exportar el resultado de un modelo de regresión específicado mediante la siguiente sintaxis: `lm(ozone ~ temp, data = medias)`. El resultado se guarda en un objeto llamado *regresion*
+  
+  ```{r, echo=FALSE} 
+regresion <- lm(satisfaccion_vida ~ edad, data = datos)
+```
+
+Luego, si sobre tal objeto ejecutamos el comando `stargazer` del paquete del mismo nombre, se obtiene un resumen en formato tabla, de los estadísticos descritpivos principales del modelo.
+
+Cabe observar que para obtener archivos compilados desde RMarkdown, es vital el argumento `type` de esta función. Para documentos en formato Html, sirve mantener la configuración `html`; sin embargo, si buscamos compilar un archivo PDF, deberemos cambiar el comando _type_ a la opción `type = "latex"`. Si buscamos compilar un archivo word, deberemos indicar la opción `type = "text"`
+
+```{r, results = 'asis', warning=FALSE, message=FALSE}
+library(stargazer)
+stargazer(regresion, header = FALSE, type = "latex")
+
+```
+
+\pagebreak
+
+## Gráfico
+
+```{r, echo=FALSE, message=FALSE}
+library(ggplot2)
+load("medias_atmos.RData")
+```
+
+La misma lógica se sigue para los gráficos. A continuación se muestra el código que genera un gráfico. 
+Es importante recordar que `ggplot` es la función, mientras que **aes** permite especificar la relación entre los datos y los ejes o dimensiones del gráfico. Luego del signo '+' la siguiente línea especifica la geometría, en este caso **geom_point** indica que se trata de un diagrama de dispersión (la geometría indicada son puntos).
+
+```{r}
+ggplot(medias, aes(x = pressure, y = ozone)) + geom_point()
+```
+
+
+\pagebreak
+
+
+# ¿Cómo incorporar bibliografía?
+
+El último elemento a revisar es cómo incorporar una bibligrafía formal al reporte. 
+
+Para hacerlo es preciso manejar dos elementos.
+
+1. *Zotero y Zotero connector*. Mediante este software se puede crear un listado bibliográfico compatible con LaTex (archivo *.bib*) que - cargado a RMarkdown - permitirá insertar referencias y que luego se construya un listado bibliográfico. Ambos pueden descargarse desde [este enlace](https://www.zotero.org/download/).
+2. Contar con un archivo *.csl* para indicarle el formato de cita al documento (*Citation Language Style*). Se puede descargar el adecuado para formato APA 6a Edición desde [esta página](https://www.zotero.org/styles?q=apa).
+
+El listado bibliográfico final se contruirá siempre en base a las citas realizadas en el cuerpo del texto y no en base a todas las referencias presentes en el archivo de referencias exportado desde zotero. La bibliografía siempre se compila al final del documento. Eso significa que estará al final del último elemento escrito. Por eso, si se deja un título al final del documento, permite anteponer un encabezado al aparatado de bibliografía.
+
+\pagebreak
+
+# Enlaces útiles
+
+**Links para descargar Zotero y Zotero connector**
+  
+  * https://www.zotero.org/download/
+  
+  **Link para descargar diferentes formatos para referencias bibliográficas.**
+  
+  * https://www.zotero.org/styles?q=apa
+
+\pagebreak
+
+# Referencias bibliográficas

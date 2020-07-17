@@ -15,7 +15,7 @@ install.packages(c("haven", "car", "tidyverse", "Publish", "summarytools", "open
 #abrir archivo UDP_2015 (formato stata) - comando read.dta de paquete haven
 
 # ---- EJERCICIO 1: resolver mensaje de error -----
-
+library(haven)
 UDP_stata <- read_dta("datos/UDP_2015.dta") #¿qué operación falta realizar?
 
 #abrir archivo UDP_2015 (formato SPSS) - comando read_spss de paquete haven
@@ -142,7 +142,7 @@ UDP_RM <- filter(UDP, region == 13)
 #---- EJERCICIO 3 -----
 #Aplicar filtro para seleccionar sólo a mujeres de RM, usando variable "sexo"
 
-UDP_RM_mujeres <- filter(UDP, ...)
+UDP_RM_mujeres <- filter(UDP, sexorec=="mujer", region==13)
 
 
 # Forma básica para estimar intervalos de confianza
