@@ -2,7 +2,6 @@
 title: "Ejemplo de uso de RMarkdown para construir informes en formato PDF"
 author: "Felipe Ruiz Bruzzone"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-lang: es
 linkcolor: blue
 csl: apa.csl
 subtitle: "Curso Introducción a R para Ciencias Sociales - Abril 2020"
