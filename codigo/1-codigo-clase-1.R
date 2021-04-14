@@ -28,7 +28,7 @@ library(readxl)
   # relativa (al proyecto) y no absoluta (al computador personal) para cargar el archivo.
   # Usar proyectos facilita reproducibilidad
 
-ANEJUD <- read_excel("datos/ANEJUD.xlsx")
+ANEJUD <- read_excel("datos/1-ANEJUD.xlsx")
 
 # Visualizar como planilla
 View(ANEJUD)
