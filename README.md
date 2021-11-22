@@ -1,4 +1,4 @@
-# Repositorio curso Introducción a R para Ciencias Sociales - version noviembre-diciembre 2021
+# Repositorio curso Introducción a R para Ciencias Sociales - version *noviembre-diciembre 2021*
 
 El presente repositorio tiene por objetivo almacenar los materiales vinculados al trabajo de *RStudio* para el curso **Introducción a R para Ciencias Sociales** impartido en **Estación Lastarria** durante noviembre t diciembre de 2021.
 
