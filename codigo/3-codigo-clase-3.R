@@ -18,8 +18,8 @@ library(readxl)
 # Una vez que el paquete está descargado sólo resta ejecutarlo (library). 
 # No se precisa descargar e instalar (install.packages) cada vez
 
-# Instalaci´on masiva de paquetes (concatenar nombres)
-install.packages(c("haven", "car", "tidyverse", "summarytools"))
+# Instalacióon masiva de paquetes (concatenar nombres)
+install.packages(c("haven", "car", "tidyverse"))
 
 #----------- 1. IMPORTACIÓN DE BASES DE DATOS - FORMATO PLANILLA ------------------
 
