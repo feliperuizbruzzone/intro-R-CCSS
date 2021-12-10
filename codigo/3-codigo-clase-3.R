@@ -12,13 +12,13 @@ install.packages("readxl") # Para leer archivos .xlsx
 
 # Verificación visual en pestaña "packages".
 
-# Para cargar paquete mediante código en nuestra sesión de trabajo (nombre no va entre comillas)
+# Para cargar paquete mediante c?digo en nuestra sesión de trabajo (nombre no va entre comillas)
 library(readxl)
 
 # Una vez que el paquete está descargado sólo resta ejecutarlo (library). 
 # No se precisa descargar e instalar (install.packages) cada vez
 
-# Instalación masiva de paquetes (concatenar nombres)
+# Instalaci´on masiva de paquetes (concatenar nombres)
 install.packages(c("haven", "car", "tidyverse", "summarytools"))
 
 #----------- 1. IMPORTACIÓN DE BASES DE DATOS - FORMATO PLANILLA ------------------
@@ -44,7 +44,7 @@ View(paraguay_csv) # Visualizar base de datos
 
 # ¿Cómo indicar una lectura correcta de la base de datos?
 
-#¿Qué pasa si usamos una función adecuada a notación latina?
+#?Qu? pasa si usamos una función adecuada a notación latina?
 #lee comas como decimales y punto y comas como separador de variables
 paraguay_csv2 <- read.csv2("datos/3-paraguay.csv")
 View(paraguay_csv2)
@@ -80,26 +80,26 @@ paraguay_excel <- read_excel("datos/3-paraguay.xlsx", sheet = "respuestas", skip
 
 # ---- EJERCICIO 2: resolver mensaje de error -----
 
-UDP_stata <- read_dta("datos/3-UDP_2015.dta") #¿qué operación falta realizar?
+UDP_stata <- read_dta("datos/3-UDP_2015.dta") # ¿qué operacion falta realizar?
 
 #abrir archivo UDP_2015 (formato SPSS) - comando read_spss de paquete haven
 
 UDP_spss <- read_spss("datos/3-UDP_2015.sav")
 
-# --- 3. MANEJO (UN POCO MÁS SOFISTICADO) DE DATOS ----
+# --- 3. MANEJO (UN POCO MáS SOFISTICADO) DE DATOS ----
 
 library(dplyr) #Cargar paquete'dplyr'
 
 #Características y estructura base de datos
 class(UDP_spss)
 dim(UDP_spss)
-names(UDP_spss) #¿Por qué es útil? este tipo de información?
+names(UDP_spss) # ¿Por que es útil este tipo de información?
 
 #Crear nueva base con sólo algunas variables de la base original: para no leer base entera.
       #Sexo_Entrevistado: sexo observado
       #P54: Edad
       #P72: Escala de ingresos
-      #P64: autoposicionamiento en estratificación. 1 grupo más bajo, 10 grupo más alto
+      #P64: autoposicionamiento en estratificación. 1 grupo má bajo, 10 grupo más alto
       #Región de residencia
 
 #Comando select de dplyr permite seleccionar columnas según el nombre.
@@ -137,7 +137,7 @@ table(UDP$sexorec)
 
 ## EDAD 
 
-#Recodificar en números asociados a rangos. 18-29; 30-49; 50-69; 70 o más.
+# Recodificar en números asociados a rangos. 18-29; 30-49; 50-69; 70 o más.
 summary(UDP$edad)
 class(UDP$edad)
 UDP$edad <- as.numeric(UDP$edad)
@@ -177,7 +177,7 @@ UDP <- mutate(UDP, region2 = )
 
 table(UDP$sexorec) #Tabla frecuencias simple
 
-prop.table(table(UDP$sexorec)) #cómo podemos abreviarlo?
+prop.table(table(UDP$sexorec)) #¿cómo podemos abreviarlo?
 
 t <- table(UDP$sexorec)
 prop.table(t) # Función sobre objeto que contiene datos
@@ -185,7 +185,7 @@ prop.table(t) # Función sobre objeto que contiene datos
 #Estadísticas descriptivas. Comando summary sobre variable individual o base completa
 summary(UDP$autoposicionamiento)
 
-summary(UDP) #¿Qué cuestiones se observan? (atípicos/perdidos)
+summary(UDP)  # ¿Que cuestiones se observan? (atípicos/perdidos)
 
 #Asignar casos perdidos. Se puede hacer dentro de una recodificación o con este comando
 UDP$autoposicionamiento[UDP$autoposicionamiento==88]<- NA
@@ -226,9 +226,9 @@ t_prop*100  #Expresamos en porcentaje
 
 round(t_prop*100, digits=2) #Redondeamos decimales
 
-prop.table(table(edad_rango, sexorec),1) #Proporción en relación a n filas
+prop.table(table(edad_rango, sexorec),1) #Proporción en relaci?n a n filas
 
-prop.table(table(edad_rango, sexorec),2) #Proporción en relación a n columnas
+prop.table(table(edad_rango, sexorec),2) #Proporción en relaci?n a n columnas
 
 # Asociación entre variables (CHI-CUADRADO)
 
@@ -250,7 +250,7 @@ saveRDS(UDP, file = "datos/4-UDP.rds") # Formato específico de R
 
 # ---- RESPUESTA EJERCICIO 1
 paraguay_csv <- read.csv("datos/2-paraguay.csv", sep = ";")
-#se debe usar el argumento "sep" para indicar cuál signo denota separación de casos.
+#se debe usar el argumento "sep" para indicar cual signo denota separación de casos.
 #en el caso propuesto, está tomando las comas existentes como separador de casos.
 
 # ----- RESPUESTA EJERCICIO 2 ----
