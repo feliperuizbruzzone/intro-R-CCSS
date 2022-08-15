@@ -1,5 +1,5 @@
 # INTRODUCCIÓN A R PARA CIENCIAS SOCIALES
-# ESTACIÓN LASTARRIA - NOVIEMBRE-DICIEMBRE 2021
+# ESTACIÓN LASTARRIA - AGOSTO/SEPTIEMBRE 2022
 # PROFESOR: FELIPE RUIZ
 
 # ---- 0. CARGA DE PAQUETES Y DATOS A UTILIZAR ----
@@ -9,6 +9,7 @@
 
 # ---- PROBLEMAS CON CARACTERES ESPECIALES?
     # ¿Cómo solucionar?
+    # Codificación de idioma según sistema operativo
 
 # EJECUCIÓN DE COMANDOS:
   # Se ejecuta línea de comando donde está el cursor, o bien selección ad-hoc
